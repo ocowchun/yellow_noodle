@@ -1,1 +1,200 @@
-welcome to foodkit data warehouse
+<h2>welcome to foodkit data warehouse</h2>
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+</head>
+<style type="text/css">
+html,body{
+	height:100%;
+	width:100%;
+	margin:0px auto;
+	position:relative;
+	background-color:#e9e9e9;
+	font-family: 'Lobster', Georgia, Times, serif !important;
+	font-size:12px;
+}
+.bannertitle {
+	
+	text-align: center;		
+	font-size: 36px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 50px;
+	color: #b22222;
+}
+
+span{
+	font-size: 20px;
+}
+
+
+/*block*/
+.content{
+	width:960px;
+	margin:0px auto;
+	background-color:#FFF;
+	padding: 10px;
+}
+
+.graph{
+	width:860px;
+	margin:0px auto;
+	background-color:#FFF;
+	margin-bottom: 40px;
+	
+}
+
+h3{
+	margin:0px auto;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #CCC;
+}
+
+.footer{
+	margin:0px auto;
+	cursor: pointer;
+	text-align: center;
+	margin-top: 100px;
+	
+}
+</style>
+
+<div class='content'>
+
+<div class='bannertitle'>Footkit Decision Support System<span>(Simplified)</span></div>
+<div>
+	<h3>Active user amount in per month</h3>
+	<div class='graph' id='Auaipm'></div>
+</div>
+<div>
+	<h3>All active user's action amount</h3>
+	<div class='graph' id='Aauaa'></div>
+</div>
+<div>
+	<h3>All active user's Landing url and Landing platform</h3>
+	<div class='graph' id='Aaulanding'></div>
+</div>
+<div>
+	<h3>All active user's portfolio</h3>
+	<div class='graph' id='Aaup'></div>
+</div>
+
+
+
+<div class='footer'>
+	<h6>中文(台灣) · 隱私政策 · 使用條款 · Cookies ·</h6>
+	<h6>Foodkit © 2014</h6>
+	
+</div>
+
+
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+	
+		
+      google.load("visualization", "1", {packages:["corechart"]});
+
+      google.setOnLoadCallback(drawLineChart); //呼叫畫圖函數
+	
+     
+
+      function drawLineChart() { //Line Chart
+
+      	//應該就是把這個 Month 和數量丟進去就好  ARRAY TABLE
+	 	var data = google.visualization.arrayToDataTable([ 
+	      ['Month', 'Amount' ],
+	      ['一月',  1000],
+	      ['二月',  1170],
+	      ['三月',  660],
+	      ['四月',  1030]
+	    ]);
+       
+        var options = {
+          title: 'Active user MAU'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('Auaipm'));
+        chart.draw(data, options);
+      }
+
+
+      google.setOnLoadCallback(drawbarChart);//呼叫畫圖函數
+
+
+      function drawbarChart() { //Bar Chart
+
+      	//應該就是把這個 動作名稱 和數量丟進去就好  ARRAY TABLE
+        var data = google.visualization.arrayToDataTable([
+          ['Action', 'Amount'],
+          ['Login',  1000],
+          ['Post',  1170],
+          ['Tag',  660],
+          ['Comment',  1030]
+        ]);
+
+        var options = {
+          title: 'Active user actions',
+          hAxis: {title: 'Action', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('Aauaa'));
+        chart.draw(data, options);
+      }
+ 
+
+
+
+
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawLandingTable);
+
+
+      function drawLandingTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Landing Url');
+        data.addColumn('number', 'amount');
+       
+       //應該就是把這個 名稱 和數量丟進去就好  data
+        data.addRows([
+          ['Facebook',  10000],
+          ['Google',  8000],
+          ['Pocket.com', 12500],
+          ['Ipeen.com.tw',  7000]
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('Aaulanding'));
+        table.draw(data, {showRowNumber: true});
+      }
+
+
+     
+      google.setOnLoadCallback(drawPortfolioTable);
+
+
+      function drawPortfolioTable() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Portfolio');
+        data.addColumn('number', 'amount');
+     
+
+      //應該就是把這個 名稱 和數量丟進去就好  data
+        data.addRows([
+          ['Gender-boy',  {v: 60, f: '60%'}],
+          ['Gender-girl',   {v:40,   f: '40%'}],
+          ['Age 12-18', {v: 20, f: '20%'}],
+          ['Age 18-24',   {v: 40,  f: '40%'}]
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('Aaup'));
+        table.draw(data, {showRowNumber: true});
+      }
+
+</script>
