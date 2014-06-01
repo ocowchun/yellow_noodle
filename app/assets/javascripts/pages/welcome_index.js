@@ -6,28 +6,38 @@
     });
 
     $(function(argument) {
-      console.log(google)
 
-      google.setOnLoadCallback(drawLineChart); //呼叫畫圖函數
 
-      function drawLineChart() { //Line Chart
+      $.get('user_log_facts/activate_user_per_month').done(function(result) {
+        drawLineChart(result.activate_user_per_month);
+      });
 
-        //應該就是把這個 Month 和數量丟進去就好  ARRAY TABLE
-        var data = google.visualization.arrayToDataTable([
+      function drawLineChart(mauInfo) {
+        var rawData = [
           ['Month', 'Amount'],
-          ['一月', 1000],
-          ['二月', 1170],
-          ['三月', 660],
-          ['四月', 1030]
-        ]);
+        ];
+        
+        for (var i = 0, max = mauInfo.data.length; i < max; i++) {
+          var mau = mauInfo.data[i];
+          rawData.push([mau.date, mau.amount]);
+        }
 
-        var options = {
-          title: 'Active user MAU'
-        };
+        function excuteDrawLineChart() { //Line Chart
+          //應該就是把這個 Month 和數量丟進去就好  ARRAY TABLE
+          var data = google.visualization.arrayToDataTable(rawData);
 
-        var chart = new google.visualization.LineChart(document.getElementById('Auaipm'));
-        chart.draw(data, options);
+          var options = {
+            title: 'Active user MAU'
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('Auaipm'));
+          chart.draw(data, options);
+        }
+
+
+        google.setOnLoadCallback(excuteDrawLineChart); //呼叫畫圖函數
       }
+
 
 
       google.setOnLoadCallback(drawbarChart); //呼叫畫圖函數
