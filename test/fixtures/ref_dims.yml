@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  referer_url: MyString
+  event_name: MyString
+  platform_name: MyString
+
+two:
+  referer_url: MyString
+  event_name: MyString
+  platform_name: MyString
