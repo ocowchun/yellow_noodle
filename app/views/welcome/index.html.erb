@@ -111,9 +111,9 @@ select{
 	<h3>All active user's action amount</h3>
   <div class='leftframe'>
       
-      <!-- <button type="button" class="aauaatool btn btn-default">Download CVS</button>  -->
+   <%= link_to "Download CSV", action_by_month_user_log_facts_path(user_action:"Login",format: "csv"),  :class=>"aauaatool btn btn-default",id:"btnActionByMonth" %>
 
-  <%= link_to "Download CSV", action_by_month_user_log_facts_path(user_action:"Login",format: "csv"),  :class=>"aauaatool btn btn-default",id:"btnActionByMonth" %>
+
       <select id="selectUserAction" class="aauaatool btn ">
         <option>Login</option>
         <option>Post</option>
@@ -131,7 +131,7 @@ select{
     <!--圖3-->
   	
     
-    <button type="button" class="btn btn-default tablebtn">Download CVS</button>
+  <%= link_to "Download CSV", signup_channel_user_log_facts_path(format: "csv"),  :class=>"aauaatool btn btn-default" %>
 <div id="containerRefer"  width="780" height="300"></div>
 
   </div>
@@ -141,8 +141,7 @@ select{
   <div class='divframe'>
 
     <!--圖4-->
-  	<!-- <div class='graph table' id='Aaup'></div> -->
-    <button type="button" class="btn btn-default tablebtn">Download CVS</button>
+      <%= link_to "Download CSV", distribute_user_dims_path(format: "csv"),  :class=>"aauaatool btn btn-default" %>
  <div id="containerPortfolio"  width="780" height="300"></div>
   </div>
 </div>
