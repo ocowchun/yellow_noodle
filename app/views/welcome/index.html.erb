@@ -1,0 +1,92 @@
+<h2>welcome to foodkit data warehouse</h2>
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+</head>
+<style type="text/css">
+html,body{
+	height:100%;
+	width:100%;
+	margin:0px auto;
+	position:relative;
+	background-color:#e9e9e9;
+	font-family: 'Lobster', Georgia, Times, serif !important;
+	font-size:12px;
+}
+.bannertitle {
+	
+	text-align: center;		
+	font-size: 36px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 50px;
+	color: #b22222;
+}
+
+span{
+	font-size: 20px;
+}
+
+
+/*block*/
+.content{
+	width:960px;
+	margin:0px auto;
+	background-color:#FFF;
+	padding: 10px;
+}
+
+.graph{
+	width:860px;
+	margin:0px auto;
+	background-color:#FFF;
+	margin-bottom: 40px;
+	
+}
+
+h3{
+	margin:0px auto;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #CCC;
+}
+
+.footer{
+	margin:0px auto;
+	cursor: pointer;
+	text-align: center;
+	margin-top: 100px;
+	
+}
+</style>
+
+<div class='content'>
+
+<div class='bannertitle'>Footkit Decision Support System<span>(Simplified)</span></div>
+<div>
+	<h3>Active user amount in per month</h3>
+	<div class='graph' id='Auaipm'></div>
+</div>
+<div>
+	<h3>All active user's action amount</h3>
+	<div class='graph' id='Aauaa'></div>
+</div>
+<div>
+	<h3>All active user's Landing url and Landing platform</h3>
+	<div class='graph' id='Aaulanding'></div>
+</div>
+<div>
+	<h3>All active user's portfolio</h3>
+	<div class='graph' id='Aaup'></div>
+</div>
+
+
+
+<div class='footer'>
+	<h6>中文(台灣) · 隱私政策 · 使用條款 · Cookies ·</h6>
+	<h6>Foodkit © 2014</h6>
+	
+</div>
+
+
+</div>
+
+  <%= javascript_include_tag 'pages/welcome_index', 'data-turbolinks-track' => true %>
