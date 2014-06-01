@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "chartjs": "*"
+    "chartjs": "*",
+    "highcharts": "~3.0.7"
   }
 }
