@@ -22,7 +22,11 @@ class UserLogFactsController < ApplicationController
 
   def signup_channel
     signup_channel=UserLogFact.signup_channel
-    render json: signup_channel, each_serializer: UserSignupChannelSerializer,root:"signup_channel"
+    respond_to do |format|
+      format.json { render json: signup_channel, each_serializer: UserSignupChannelSerializer,root:"signup_channel"}
+      format.csv { render text: signup_channel_to_csv(signup_channel) }
+      format.any { render :text => "WTF" }
+    end
   end
 
   private
@@ -46,6 +50,17 @@ class UserLogFactsController < ApplicationController
         user_count=obj.user_count
         date=date(obj.time_dim_id)
         csv << [date,action_amount,user_count]
+      end
+    end
+  end
+
+  def signup_channel_to_csv data
+    CSV.generate do |csv|
+      csv << [:platform_name,:amount]
+      data.to_a.each do |obj|
+        amount=obj.amount
+        platform_name=obj.platform_name
+        csv << [platform_name,amount]
       end
     end
   end
