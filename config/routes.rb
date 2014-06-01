@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :user_log_facts do
     collection do
       get 'activate_user_per_month'
+      get 'action_by_month'
     end
   end
 
