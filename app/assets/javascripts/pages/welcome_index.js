@@ -8,21 +8,35 @@ google.load('visualization', '1', {
 });
 
 $(function(argument) {
-
+  $selectUserAction = $('#selectUserAction'), $btnActionByMonth = $('#btnActionByMonth');
 
   $.get('user_log_facts/activate_user_per_month').done(function(result) {
     draw_activate_user_per_month(result.activate_user_per_month);
   });
 
-showActionByMonth("post");
-  function showActionByMonth(action) {
+  showActionByMonth("post");
 
-    $.get('user_log_facts/action_by_month',{user_action:action}).done(function(result) {
+  $selectUserAction.on("change", function(e) {
+    var selectedAction = this.value;
+    console.log(selectedAction)
+    showActionByMonth(selectedAction);
+    changeActionByMonthURL(selectedAction);
+  });
+
+  function showActionByMonth(action) {
+    console.log(action);
+    $.get('user_log_facts/action_by_month', {
+      user_action: action
+    }).done(function(result) {
       drawActionByMonth(result.action_by_month);
     });
   }
 
+  function changeActionByMonthURL(action) {
+    var url = "/user_log_facts/action_by_month.json?user_action=" + action;
+    $btnActionByMonth.attr("href", url)
 
+  }
 
   function draw_activate_user_per_month(mauInfo) {
     var labels = [],
@@ -51,10 +65,10 @@ showActionByMonth("post");
     var myNewChart = new Chart(ctx).Line(data, options);
   }
 
- function drawActionByMonth(actionDatas) {
+  function drawActionByMonth(actionDatas) {
     var labels = [],
       amounts = [];
-      user_count=[];
+    user_count = [];
     for (var i = 0, max = actionDatas.length; i < max; i++) {
       var actionData = actionDatas[i];
       labels.push(actionData.date);
@@ -72,14 +86,13 @@ showActionByMonth("post");
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             data: amounts
-          },
-    {
-      fillColor : "rgba(151,187,205,0.5)",
-      strokeColor : "rgba(151,187,205,1)",
-      pointColor : "rgba(151,187,205,1)",
-      pointStrokeColor : "#fff",
-      data : user_count
-    }
+          }, {
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            data: user_count
+          }
         ]
       },
       options = {};

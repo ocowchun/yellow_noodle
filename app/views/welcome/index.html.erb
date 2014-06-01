@@ -101,7 +101,8 @@ select{
 <div>
 	<h3>Active user amount in per month</h3> 
   <div class='leftframe'>
-     <button type="button" class="btn btn-default">Download CVS</button>
+  <%= link_to "Download CSV", activate_user_per_month_user_log_facts_path(format: "csv"),
+  :class=>"btn btn-default" %>
   </div>
 
   <!--圖1-->
@@ -113,9 +114,10 @@ select{
 	<h3>All active user's action amount</h3>
   <div class='leftframe'>
       
-      <button type="button" class="aauaatool btn btn-default">Download CVS</button> 
+      <!-- <button type="button" class="aauaatool btn btn-default">Download CVS</button>  -->
 
-      <select class="aauaatool btn ">
+  <%= link_to "Download CSV", action_by_month_user_log_facts_path(user_action:"Login",format: "csv"),  :class=>"aauaatool btn btn-default",id:"btnActionByMonth" %>
+      <select id="selectUserAction" class="aauaatool btn ">
         <option>Login</option>
         <option>Post</option>
         <option>Tag</option>

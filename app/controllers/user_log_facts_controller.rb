@@ -11,7 +11,7 @@ class UserLogFactsController < ApplicationController
   end
 
   def action_by_month
-    action=params[:user_action]
+    action=params[:user_action].downcase
     action_by_month=UserLogFact.action_by_month(action)
     respond_to do |format|
       format.json { render json: action_by_month, each_serializer: ActionByMonthSerializer,root:"action_by_month"}
