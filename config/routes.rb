@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     collection do
       get 'activate_user_per_month'
       get 'action_by_month'
+      get 'signup_channel'
     end
   end
 

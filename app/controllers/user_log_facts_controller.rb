@@ -20,6 +20,11 @@ class UserLogFactsController < ApplicationController
     end
   end
 
+  def signup_channel
+    signup_channel=UserLogFact.signup_channel
+    render json: signup_channel, each_serializer: UserSignupChannelSerializer,root:"signup_channel"
+  end
+
   private
 
   def activate_user_per_month_to_csv data
