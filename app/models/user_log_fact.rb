@@ -1,5 +1,5 @@
 class UserLogFact < ActiveRecord::Base
-
+  belongs_to :ref_dim
 
   # 每個月的用戶量
   def self.activate_user_per_month
@@ -11,6 +11,10 @@ class UserLogFact < ActiveRecord::Base
     action_dim_id=get_action_dim_id(action)
     select("sum(action_number) as action_amount,sum(user_dim_id) as user_count,time_dim_id").group(:time_dim_id).where(action_dim_id:action_dim_id)
     # .sum(:action_number).sum(:user_dim_id)
+  end
+
+  def self.signup_channel
+    select("count(user_log_facts.id) as amount, ref_dims.platform_name as platform_name").joins(:ref_dim).group("ref_dims.platform_name")
   end
 
   def self.get_action_dim_id action
