@@ -14,6 +14,15 @@ $(function(argument) {
     draw_activate_user_per_month(result.activate_user_per_month);
   });
 
+showActionByMonth("post");
+  function showActionByMonth(action) {
+
+    $.get('user_log_facts/action_by_month',{user_action:action}).done(function(result) {
+      drawActionByMonth(result.action_by_month);
+    });
+  }
+
+
 
   function draw_activate_user_per_month(mauInfo) {
     var labels = [],
@@ -42,6 +51,41 @@ $(function(argument) {
     var myNewChart = new Chart(ctx).Line(data, options);
   }
 
+ function drawActionByMonth(actionDatas) {
+    var labels = [],
+      amounts = [];
+      user_count=[];
+    for (var i = 0, max = actionDatas.length; i < max; i++) {
+      var actionData = actionDatas[i];
+      labels.push(actionData.date);
+      amounts.push(actionData.action_amount);
+      user_count.push(actionData.user_count)
+    }
+
+    var data = {
+        labels: labels,
+        datasets: [
+
+          {
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            data: amounts
+          },
+    {
+      fillColor : "rgba(151,187,205,0.5)",
+      strokeColor : "rgba(151,187,205,1)",
+      pointColor : "rgba(151,187,205,1)",
+      pointStrokeColor : "#fff",
+      data : user_count
+    }
+        ]
+      },
+      options = {};
+    var ctx = document.getElementById("Aauaa").getContext("2d");
+    var myNewChart = new Chart(ctx).Line(data, options);
+  }
 
 
   function drawbarChart() { //Bar Chart
