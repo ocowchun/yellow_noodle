@@ -1,0 +1,2 @@
+class UserLogFactsController < ApplicationController
+end
