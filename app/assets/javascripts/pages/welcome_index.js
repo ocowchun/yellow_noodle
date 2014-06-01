@@ -1,4 +1,5 @@
 //= require chartjs
+//= require highcharts
 
 google.load("visualization", "1", {
   packages: ["corechart"]
@@ -11,8 +12,10 @@ $(function(argument) {
   $selectUserAction = $('#selectUserAction'), $btnActionByMonth = $('#btnActionByMonth');
 
   $.get('user_log_facts/activate_user_per_month').done(function(result) {
-    draw_activate_user_per_month(result.activate_user_per_month);
+    drawActivateUserPerMonth(result.activate_user_per_month);
   });
+
+
 
   showActionByMonth("post");
 
@@ -38,8 +41,8 @@ $(function(argument) {
 
   }
 
-  function draw_activate_user_per_month(mauInfo) {
-       console.log("activate_user_per_month");
+  function drawActivateUserPerMonth(mauInfo) {
+    console.log("activate_user_per_month");
     var labels = [],
       amounts = [];
     for (var i = 0, max = mauInfo.data.length; i < max; i++) {
@@ -47,27 +50,61 @@ $(function(argument) {
       labels.push(mau.date);
       amounts.push(mau.amount);
     }
-
-    var data = {
-        labels: labels,
-        datasets: [
-
-          {
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            data: amounts
-          }
-        ]
+    $('#containerMAU').highcharts({
+      chart: {
+        type: 'area'
       },
-      options = {};
+      title: {
+        text: 'Area chart with Activate User Per Month'
+      },
+      xAxis: {
+        categories: labels
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'MAU',
+        data: amounts
+      }]
+    });
 
-    var ctx = document.getElementById("Auaipm").getContext("2d");
-    var myNewChart = new Chart(ctx).Line(data, options);
   }
 
   function drawActionByMonth(actionDatas) {
+    var labels = [],
+      amounts = [];
+    user_count = [];
+    for (var i = 0, max = actionDatas.length; i < max; i++) {
+      var actionData = actionDatas[i];
+      labels.push(actionData.date);
+      amounts.push(actionData.action_amount);
+      user_count.push(actionData.user_count)
+    }
+    $('#containerAPM').highcharts({
+      chart: {
+        type: 'area'
+      },
+      title: {
+        text: 'Area chart with Action By Month'
+      },
+      xAxis: {
+        categories: labels
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'action amounts',
+        data: amounts
+      },{
+        name: 'user count',
+        data: user_count
+      }]
+    });
+  }
+
+  function drawActionByMonth2(actionDatas) {
     var labels = [],
       amounts = [];
     user_count = [];
