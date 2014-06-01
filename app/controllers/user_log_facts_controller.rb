@@ -4,7 +4,7 @@ class UserLogFactsController < ApplicationController
   def activate_user_per_month
     activate_user_per_month=UserLogFact.activate_user_per_month
     respond_to do |format|
-      format.js {   render json: activate_user_per_month, serializer: ActivateUserPerMonthSerializer}
+      format.json {   render json: activate_user_per_month, serializer: ActivateUserPerMonthSerializer}
       format.csv { render text: activate_user_per_month_to_csv(activate_user_per_month) }
       format.any { render :text => "WTF" }
     end

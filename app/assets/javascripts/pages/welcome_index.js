@@ -39,6 +39,7 @@ $(function(argument) {
   }
 
   function draw_activate_user_per_month(mauInfo) {
+       console.log("activate_user_per_month");
     var labels = [],
       amounts = [];
     for (var i = 0, max = mauInfo.data.length; i < max; i++) {
@@ -61,6 +62,7 @@ $(function(argument) {
         ]
       },
       options = {};
+
     var ctx = document.getElementById("Auaipm").getContext("2d");
     var myNewChart = new Chart(ctx).Line(data, options);
   }
