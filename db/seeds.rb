@@ -7,7 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-
+def date register_time
+  month=register_time.month
+  year=register_time.year
+  12*(year-2013)+month
+end
 
 def create_user
   g=Random.rand(10)
@@ -21,7 +25,10 @@ def create_user
   else
     gender="female"
   end
-  UserDim.create(city:Faker::Address.city,gender:gender,age:age,register_time:register_time)
+  u=UserDim.create(city:Faker::Address.city,gender:gender,age:age,register_time:register_time)
+  time_dim_id=date(register_time)
+  ref=Random.rand(10)+1
+  create_action(u.id,time_dim_id,5,1,ref)
 end
 
 def create_refer
@@ -46,6 +53,12 @@ def create_action user_dim_id,time_dim_id,action_dim_id,action_number
                      action_dim_id:action_dim_id,action_number:action_number)
 end
 
+def create_action user_dim_id,time_dim_id,action_dim_id,action_number,ref_dim_id
+  UserLogFact.create(user_dim_id:user_dim_id,time_dim_id:time_dim_id,
+                     action_dim_id:action_dim_id,action_number:action_number,
+                     ref_dim_id:ref_dim_id)
+end
+
 # 模擬三個月的使用者使用情況
 # 先有使用者
 # 使用者從何而來
@@ -54,12 +67,21 @@ end
 # ActionDim.create(action_name:"tag")
 # ActionDim.create(action_name:"login")
 # ActionDim.create(action_name:"comment")
+# ActionDim.create(action_name:"signup")
 
 # 12.times  do |time|
 #   TimeDim.create(month:time+1,year:2013)
 # end
 # 12.times  do |time|
 #   TimeDim.create(month:time+1,year:2014)
+# end
+
+# def create_refer
+#   url=Faker::Internet.url('google.com')
+#   RefDim.create(referer_url:url,platform_name:"google")
+# end
+# 5.times do|x|
+#   create_refer
 # end
 
 
@@ -71,20 +93,20 @@ def create_action_logs user_dim_id,start_time_id,end_time_id
   end
 end
 
-UserDim.all.each do |user|
-  user_dim_id= user.id
-  register_time=user.register_time
-  year=register_time.year
-  month=register_time.month
-  start_time_id=12*(year-2013)+month
-  g=Random.rand(10)
-  end_time_id=start_time_id+g
-  end_time_id=24 if end_time_id>24
-  create_action_logs(user_dim_id,start_time_id,end_time_id)
-end
-
-# 10.times do |x|
-#   create_user
+# UserDim.all.each do |user|
+#   user_dim_id= user.id
+#   register_time=user.register_time
+#   year=register_time.year
+#   month=register_time.month
+#   start_time_id=12*(year-2013)+month
+#   g=Random.rand(10)
+#   end_time_id=start_time_id+g
+#   end_time_id=24 if end_time_id>24
+#   create_action_logs(user_dim_id,start_time_id,end_time_id)
 # end
+
+100.times do |x|
+  create_user
+end
 
 # UserLogFact.create
