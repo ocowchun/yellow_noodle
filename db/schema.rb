@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601050835) do
+ActiveRecord::Schema.define(version: 20140601051120) do
+
+  create_table "user_dims", force: true do |t|
+    t.integer  "age"
+    t.string   "gender"
+    t.string   "city"
+    t.datetime "register_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "user_log_facts", force: true do |t|
     t.integer  "user_dim_id"
