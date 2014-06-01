@@ -20,6 +20,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :user_dims do
+    collection do
+      get 'distribute'
+    end
+  end
+
   # Example resource route with options:
   #   resources :products do
   #     member do
