@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601051435) do
+ActiveRecord::Schema.define(version: 20140601164524) do
 
   create_table "action_dims", force: true do |t|
     t.string   "action_name"
@@ -52,5 +52,10 @@ ActiveRecord::Schema.define(version: 20140601051435) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "user_log_facts", ["action_dim_id"], name: "index_user_log_facts_on_action_dim_id"
+  add_index "user_log_facts", ["ref_dim_id"], name: "index_user_log_facts_on_ref_dim_id"
+  add_index "user_log_facts", ["time_dim_id"], name: "index_user_log_facts_on_time_dim_id"
+  add_index "user_log_facts", ["user_dim_id"], name: "index_user_log_facts_on_user_dim_id"
 
 end
